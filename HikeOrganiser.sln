@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikeOrganiser.API", "src\HikeOrganiser.API\HikeOrganiser.API.csproj", "{92FAFFA0-4C6F-473D-B51D-68C9C553BBAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikeOrganiser.Core", "src\HikeOrganiser.Core\HikeOrganiser.Core.csproj", "{F72C7DA6-9CFD-4428-8265-E30E4811697E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikeOrganiser.Data", "src\HikeOrganiser.Data\HikeOrganiser.Data.csproj", "{BBA64610-6E3F-40EB-8CC0-BE16052D8147}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikeOrganiser.DiscordBot", "src\HikeOrganiser.DiscordBot\HikeOrganiser.DiscordBot.csproj", "{F432EF9B-438F-40C8-8DC5-A6B7EAC505CD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HikeOrganiser.Tests", "test\HikeOrganiser.Tests\HikeOrganiser.Tests.csproj", "{62E947FB-259F-4777-BE94-16F00388C960}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{92FAFFA0-4C6F-473D-B51D-68C9C553BBAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92FAFFA0-4C6F-473D-B51D-68C9C553BBAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92FAFFA0-4C6F-473D-B51D-68C9C553BBAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92FAFFA0-4C6F-473D-B51D-68C9C553BBAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F72C7DA6-9CFD-4428-8265-E30E4811697E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F72C7DA6-9CFD-4428-8265-E30E4811697E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F72C7DA6-9CFD-4428-8265-E30E4811697E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F72C7DA6-9CFD-4428-8265-E30E4811697E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA64610-6E3F-40EB-8CC0-BE16052D8147}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA64610-6E3F-40EB-8CC0-BE16052D8147}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA64610-6E3F-40EB-8CC0-BE16052D8147}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA64610-6E3F-40EB-8CC0-BE16052D8147}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F432EF9B-438F-40C8-8DC5-A6B7EAC505CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F432EF9B-438F-40C8-8DC5-A6B7EAC505CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F432EF9B-438F-40C8-8DC5-A6B7EAC505CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F432EF9B-438F-40C8-8DC5-A6B7EAC505CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62E947FB-259F-4777-BE94-16F00388C960}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62E947FB-259F-4777-BE94-16F00388C960}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62E947FB-259F-4777-BE94-16F00388C960}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62E947FB-259F-4777-BE94-16F00388C960}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

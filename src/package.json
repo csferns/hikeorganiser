@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@fluentui/react-components": "^9.58.2",
+    "axios": "^1.7.9"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1"
+  }
+}
