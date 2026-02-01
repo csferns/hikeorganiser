@@ -9,6 +9,6 @@ public sealed class UserConfiguration : IEntityTypeConfiguration<User>
         builder.HasOne(x => x.ReferredByUser)
             .WithMany(x => x.ReferredUsers)
             .HasForeignKey(x => x.ReferredByUserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
     }
 }

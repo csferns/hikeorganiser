@@ -4,15 +4,13 @@ using HikeOrganiser.Core.Interfaces;
 using HikeOrganiser.Data.Entities;
 using HikeOrganiser.Data.Enums;
 using HikeOrganiser.Data.Persistence;
-using MockQueryable;
-using MockQueryable.Moq;
 using Schedule = HikeOrganiser.Core.Behaviours.Events.Schedule;
 
 namespace HikeOrganiser.Tests.Behaviours;
 
 public class ScheduleEventTests
 {
-    private Mock<Context> _context = null!;
+    private Mock<HikeOrganiserContext> _context = null!;
     private Mock<ICurrentUserService> _currentUserService = null!;
     private Mock<ServiceBusClient> _serviceBusClient = null!;
     private Mock<ServiceBusSender> _serviceBusSender = null!;
@@ -26,7 +24,7 @@ public class ScheduleEventTests
     {
         User user = new() { Id = new("3de9f712-4f59-412c-8560-0bc2add62eb4") };
         
-        Mock<Context> context = new();
+        Mock<HikeOrganiserContext> context = new();
         Mock<ICurrentUserService> currentUserService = new();
         currentUserService.Setup(mock => mock.GetAsync(CancellationToken.None))
             .ReturnsAsync(user);
@@ -60,7 +58,6 @@ public class ScheduleEventTests
             Description = "Test Event",
             Location = "Test Location",
             MeetingLocation = "Test Meeting Location",
-            DateType = DateType.Manual,
             MeetingTime = TimeOnly.Parse("12:00:00"),
             StartDate = DateTime.Today.AddDays(2),
             EndDate = DateTime.Today.AddDays(3),
@@ -68,7 +65,7 @@ public class ScheduleEventTests
         
         Schedule.Model model = await _handler.Handle(request, CancellationToken.None);
         
-        model.Success.Should().BeTrue();
+        model.EventId.Should().BeGreaterThan(0);
         
         events.Should().HaveCount(1);
         
@@ -78,7 +75,6 @@ public class ScheduleEventTests
             Description = "Test Event",
             Location = "Test Location",
             MeetingLocation = "Test Meeting Location",
-            DateType = DateType.Manual,
             MeetingTime = TimeOnly.Parse("12:00:00"),
             StartDate = DateTime.Today.AddDays(2),
             EndDate = DateTime.Today.AddDays(3),

@@ -1,6 +1,4 @@
-﻿using HikeOrganiser.Core.Interfaces;
-
-namespace HikeOrganiser.Core.Model.Events;
+﻿namespace HikeOrganiser.Core.Model.Events;
 
 public sealed class UserJoinArgs : IDiscordTargetableEvent
 {

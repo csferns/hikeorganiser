@@ -1,5 +1,3 @@
-using HikeOrganiser.Data.Enums;
-
 namespace HikeOrganiser.Data.Entities;
 
 public class Event
@@ -11,7 +9,6 @@ public class Event
     public string? MeetingLocation { get; set; }
     public string? Location { get; set; }
     
-    public DateType DateType { get; set; }
     public TimeOnly? MeetingTime { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime? EndDate { get; set; }

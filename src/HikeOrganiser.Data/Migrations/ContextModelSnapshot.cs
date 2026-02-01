@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HikeOrganiser.Data.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(HikeOrganiserContext))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -71,7 +71,7 @@ namespace HikeOrganiser.Data.Migrations
 
                     b.HasIndex("SuggestedById");
 
-                    b.ToTable("BucketList");
+                    b.ToTable("BucketLists");
                 });
 
             modelBuilder.Entity("HikeOrganiser.Data.Entities.Event", b =>
@@ -83,9 +83,6 @@ namespace HikeOrganiser.Data.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int?>("BucketListId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("DateType")
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
@@ -157,12 +154,6 @@ namespace HikeOrganiser.Data.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
-
-                    b.Property<int?>("AttendeeInformationEventId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("AttendeeInformationUserId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -239,8 +230,6 @@ namespace HikeOrganiser.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.HasIndex("ReferredByUserId");
-
-                    b.HasIndex("AttendeeInformationEventId", "AttendeeInformationUserId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -437,12 +426,12 @@ namespace HikeOrganiser.Data.Migrations
                     b.HasOne("HikeOrganiser.Data.Entities.BucketList", "BucketList")
                         .WithOne("PlannedEvent")
                         .HasForeignKey("HikeOrganiser.Data.Entities.Event", "BucketListId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.HasOne("HikeOrganiser.Data.Entities.User", "Organiser")
                         .WithMany("OrganisedEvents")
                         .HasForeignKey("OrganiserId")
-                        .OnDelete(DeleteBehavior.SetNull)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("BucketList");
@@ -455,11 +444,7 @@ namespace HikeOrganiser.Data.Migrations
                     b.HasOne("HikeOrganiser.Data.Entities.User", "ReferredByUser")
                         .WithMany("ReferredUsers")
                         .HasForeignKey("ReferredByUserId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
-                    b.HasOne("HikeOrganiser.Data.Entities.AttendeeInformation", null)
-                        .WithMany("EscortingUsers")
-                        .HasForeignKey("AttendeeInformationEventId", "AttendeeInformationUserId");
+                        .OnDelete(DeleteBehavior.NoAction);
 
                     b.Navigation("ReferredByUser");
                 });
@@ -532,11 +517,6 @@ namespace HikeOrganiser.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("HikeOrganiser.Data.Entities.AttendeeInformation", b =>
-                {
-                    b.Navigation("EscortingUsers");
                 });
 
             modelBuilder.Entity("HikeOrganiser.Data.Entities.BucketList", b =>
