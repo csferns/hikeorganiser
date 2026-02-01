@@ -30,7 +30,13 @@ jobs:
         run: az group create --name "${{ vars.AZURE_RESOURCE_GROUP }}" --location "${{ vars.AZURE_LOCATION }}"
 
       - name: Deploy infrastructure
-        run: az deployment group create --resource-group "${{ vars.AZURE_RESOURCE_GROUP }}" --template-file pipeline/main.bicep
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP }}
+          template: ./pipeline/main.bicep
+          
 
   build_and_deploy:
     needs: deploy_infra

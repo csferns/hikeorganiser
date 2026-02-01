@@ -30,3 +30,5 @@ module web 'modules/web.bicep' = {
         apiEndpoint: api.outputs.endpoint
     }
 }
+
+output webApiEndpoint string = api.outputs.endpoint
