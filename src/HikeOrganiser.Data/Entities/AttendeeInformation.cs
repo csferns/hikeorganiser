@@ -1,4 +1,6 @@
-﻿namespace HikeOrganiser.Data.Entities;
+﻿using HikeOrganiser.Data.Enums;
+
+namespace HikeOrganiser.Data.Entities;
 
 public class AttendeeInformation
 {
@@ -10,13 +12,4 @@ public class AttendeeInformation
     
     public Guid UserId { get; set; }
     public virtual User? User { get; set; }
-
-    public virtual ICollection<User> EscortingUsers { get; set; } = new HashSet<User>();
-}
-
-public enum ResponseStatus
-{
-    None = 0,
-    Going = 1,
-    Tentative = 2
 }

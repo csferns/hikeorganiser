@@ -8,17 +8,27 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCoreContext(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddDbContext<Context>(opt =>
+        services.AddDbContext<HikeOrganiserContext>(opt =>
         {
-            string? connectionString = configuration.GetConnectionString("DatabaseConnectionString");
+            string? connectionString = configuration.GetConnectionString("HikeOrganiser");
             
             if (string.IsNullOrEmpty(connectionString))
             {
-                opt.UseInMemoryDatabase(nameof(Context));
+                opt.UseInMemoryDatabase(nameof(HikeOrganiserContext));
             }
-            
-            opt.UseSqlServer(connectionString, sqlOpt => sqlOpt.EnableRetryOnFailure());
+            else
+            {
+                opt.UseSqlServer(connectionString, o =>
+                {
+                    o.EnableRetryOnFailure();
+                });
+            }
+
+            opt.EnableDetailedErrors();
+            opt.EnableSensitiveDataLogging();
         });
+        
+        
         
         return services;
     }

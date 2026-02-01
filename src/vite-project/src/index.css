@@ -1,5 +1,5 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -25,7 +25,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -65,4 +65,28 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+/* Custom login styles */
+.login-bg {
+  /* Subtle gradient with angled overlay that works in both dark and light */
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(99, 102, 241, 0.15), transparent),
+              radial-gradient(1000px 500px at 90% 90%, rgba(236, 72, 153, 0.12), transparent);
+}
+
+.login-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#root {
+  width: 100%;
+}
+
+/* Shared page styling */
+.page-card {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.map-card {
+  background: rgba(255, 255, 255, 0.02);
 }

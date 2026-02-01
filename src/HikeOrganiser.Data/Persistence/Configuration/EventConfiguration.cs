@@ -9,12 +9,12 @@ public class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.HasOne(x => x.Organiser)
             .WithMany(x => x.OrganisedEvents)
             .HasForeignKey(x => x.OrganiserId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .OnDelete(DeleteBehavior.NoAction);
 
         builder.HasOne(x => x.BucketList)
             .WithOne(x => x.PlannedEvent)
             .HasForeignKey<Event>(x => x.BucketListId)
-            .OnDelete(DeleteBehavior.SetNull)
+            .OnDelete(DeleteBehavior.NoAction)
             .IsRequired(false);
     }
 }

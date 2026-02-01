@@ -7,6 +7,8 @@ public class User : IdentityUser<Guid>
     public string FirstName { get; set; } = string.Empty;
     public string LastName { get; set; } = string.Empty;
     
+    public string DisplayName => $"{FirstName} {LastName}";
+    
     public ulong? DiscordUserId { get; set; }
     
     public Guid? ReferredByUserId { get; set; }

@@ -2,5 +2,5 @@
 
 public sealed record Model
 {
-    public bool Success { get; init; }
+    public int EventId { get; init; }
 }

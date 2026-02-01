@@ -15,5 +15,6 @@ public sealed class AttendeeInformationConfiguration : IEntityTypeConfiguration<
             .WithMany(x => x.Events)
             .HasForeignKey(x => x.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+
     }
 }

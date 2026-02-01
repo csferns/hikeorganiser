@@ -1,22 +1,22 @@
 ﻿using System.Text.Json;
 using Azure.Messaging.ServiceBus;
 using HikeOrganiser.Core.Constants;
-using HikeOrganiser.Core.Interfaces;
 using HikeOrganiser.Core.Model.Events;
 using HikeOrganiser.Data.Entities;
+using HikeOrganiser.Data.Enums;
 using HikeOrganiser.Data.Persistence;
 
 namespace HikeOrganiser.Core.Behaviours.Events.Schedule;
 
 public sealed class Handler : IRequestHandler<Request, Model>
 {
-    private readonly Context _context;
+    private readonly HikeOrganiserContext _hikeOrganiserContext;
     private readonly ICurrentUserService _currentUserService;
     private readonly ServiceBusClient _serviceBusClient;
 
-    public Handler(Context context, ICurrentUserService currentUserService, ServiceBusClient serviceBusClient)
+    public Handler(HikeOrganiserContext hikeOrganiserContext, ICurrentUserService currentUserService, ServiceBusClient serviceBusClient)
     {
-        _context = context;
+        _hikeOrganiserContext = hikeOrganiserContext;
         _currentUserService = currentUserService;
         _serviceBusClient = serviceBusClient;
     }
@@ -31,7 +31,6 @@ public sealed class Handler : IRequestHandler<Request, Model>
             Description = request.Description,
             MeetingLocation = request.MeetingLocation,
             Location = request.Location,
-            DateType = request.DateType,
             MeetingTime = request.MeetingTime, 
             StartDate = request.StartDate,
             EndDate = request.EndDate,
@@ -44,9 +43,9 @@ public sealed class Handler : IRequestHandler<Request, Model>
             }
         };
         
-        _context.Events.Add(scheduledEvent);
+        _hikeOrganiserContext.Events.Add(scheduledEvent);
         
-        await _context.SaveChangesAsync(cancellationToken);
+        await _hikeOrganiserContext.SaveChangesAsync(cancellationToken);
         
         ServiceBusSender? sender = _serviceBusClient.CreateSender(ServiceBusQueues.EventCreated);
 
@@ -62,7 +61,7 @@ public sealed class Handler : IRequestHandler<Request, Model>
         
         return new()
         {
-            Success = true
+            EventId = scheduledEvent.Id
         };
     }
 }

@@ -1,0 +1,65 @@
+name: Deploy API (Azure App Service)
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - src/HikeOrganiser.API/**
+      - src/HikeOrganiser.Core/**
+      - src/HikeOrganiser.Data/**
+      - HikeOrganiser.sln
+      - .github/workflows/deploy-api-app-service.yml
+  workflow_dispatch:
+
+jobs:
+  deploy_infra:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Ensure resource group
+        run: az group create --name "${{ vars.AZURE_RESOURCE_GROUP }}" --location "${{ vars.AZURE_LOCATION }}"
+
+      - name: Deploy infrastructure
+        uses: azure/arm-deploy@v1
+        with:
+          scope: resourcegroup
+          subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          resourceGroupName: ${{ vars.AZURE_RESOURCE_GROUP }}
+          template: ./pipeline/main.bicep
+          
+
+  build_and_deploy:
+    needs: deploy_infra
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+          include-prerelease: true
+
+      - name: Restore
+        run: dotnet restore HikeOrganiser.sln
+
+      - name: Publish
+        run: dotnet publish src/HikeOrganiser.API/HikeOrganiser.API.csproj -c Release -o ./publish
+
+      - name: Deploy
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: ${{ vars.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: ./publish
